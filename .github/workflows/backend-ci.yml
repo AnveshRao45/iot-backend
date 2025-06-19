@@ -31,13 +31,13 @@ jobs:
       run: mvn clean test
 
     - name: Build Docker image
-      run: docker build -t ${{ variables.DOCKERHUB_USERNAME }}/iot-backend:${{ github.sha }} .
+      run: docker build -t ${{ env.DOCKERHUB_USERNAME }}/iot-backend:${{ github.sha }} .
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: ${{ variables.DOCKERHUB_USERNAME }}
+        username: ${{ env.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Push Docker image to Docker Hub
-      run: docker push ${{ variables.DOCKERHUB_USERNAME }}/iot-backend:${{ github.sha }}
+      run: docker push ${{ env.DOCKERHUB_USERNAME }}/iot-backend:${{ github.sha }}
